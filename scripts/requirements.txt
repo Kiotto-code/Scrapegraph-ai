@@ -1,0 +1,4 @@
+scrapegraphai
+python-dotenv
+pydantic
+playwright

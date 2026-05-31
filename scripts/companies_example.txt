@@ -1,0 +1,5 @@
+# Example careers pages (one per line)
+https://scrapegraphai.com/careers
+https://perinim.github.io/cv/
+# Add your company careers pages below
+https://www.ppg.com/en-US
