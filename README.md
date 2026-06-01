@@ -96,6 +96,38 @@ import json
 print(json.dumps(result, indent=4))
 ```
 
+## Command-line scraper (convenience)
+
+For quick, deterministic scrapes (Playwright-based) we've included small scripts you can run directly from the repo root.
+
+- `script.sh` — top-level convenience wrapper that activates the local `.venv` (if present) and delegates to the scraper.
+- `scripts/run_company_scraper.sh` — runs `scripts/company_job_scraper.py` for each source in a sources file.
+
+Sources file format:
+- `Company Name | https://start-url`  OR
+- `https://start-url` (company will be inferred from hostname)
+
+Examples:
+
+Dry-run (prints commands):
+```bash
+./script.sh scripts/job_scraper_companies_example.txt --out-dir /tmp/scrape_outputs --dry-run
+```
+
+Real run (headless Playwright):
+```bash
+./script.sh /tmp/ppg_source.txt --out-dir /tmp/scrape_outputs --headless
+```
+
+If a company homepage links to a marketing "Careers" page (no listings), use the `--fallback-portal` option when running `company_job_scraper.py` to point to the real job portal. For example:
+
+```bash
+.venv/bin/python scripts/company_job_scraper.py --sources-file /tmp/ppg_source.txt \
+  --out /tmp/ppg_jobs.json --out-csv /tmp/ppg_jobs.csv --headless \
+  --fallback-portal https://careers.ppg.com/us/en/search-results
+```
+
+
 > [!NOTE]
 > For OpenAI and other models you just need to change the llm config!
 > ```python

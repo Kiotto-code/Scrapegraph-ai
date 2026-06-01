@@ -1,7 +1,7 @@
 """Scrape job offers from a list of careers pages using ScrapeGraphAI.
 
 Usage:
-  python scripts/job_scraper.py --sources-file companies_example.txt --out results.json
+  python scripts/job_scraper.py --sources-file job_scraper_companies_example.txt --out results.json
 
 Requires:
   - SCRAPEGRAPHAI and Playwright installed
@@ -17,6 +17,7 @@ from typing import List, Optional
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
 import sys
+from company_job_scraper import main as fallback_main
 
 # Prefer local repository package to avoid mismatched installed versions
 repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
@@ -25,8 +26,8 @@ if repo_root not in sys.path:
 
 try:
     from scrapegraphai.graphs import SmartScraperMultiGraph
-except Exception as e:
-    raise ImportError("scrapegraphai not found. Install via `pip install scrapegraphai`") from e
+except Exception:
+    SmartScraperMultiGraph = None
 
 load_dotenv()
 
@@ -121,11 +122,31 @@ def main():
     parser.add_argument("--out-csv", help="Output CSV path (optional)")
     parser.add_argument("--headless", action="store_true", help="Run browser headless (Playwright)")
     parser.add_argument("--model", help="LLM model to use", default=None)
+    parser.add_argument("--force-graph", action="store_true", help="Fail if graph imports are unavailable")
+    parser.add_argument("--fallback-portal", help="Optional portal URL for the Playwright fallback path", default=None)
     args = parser.parse_args()
 
     sources = load_sources_from_file(args.sources_file)
     if not sources:
         print("No sources found in file.")
+        return
+
+    if SmartScraperMultiGraph is None:
+        if args.force_graph:
+            raise ImportError(
+                "scrapegraphai graph imports are unavailable in this environment. "
+                "Install compatible langchain_community/langchain-ollama packages or remove --force-graph."
+            )
+
+        print("Graph stack unavailable; falling back to the Playwright company scraper.")
+        fallback_args = ["--sources-file", args.sources_file, "--out", args.out]
+        if args.out_csv:
+            fallback_args.extend(["--out-csv", args.out_csv])
+        if args.headless:
+            fallback_args.append("--headless")
+        if args.fallback_portal:
+            fallback_args.extend(["--fallback-portal", args.fallback_portal])
+        fallback_main(fallback_args)
         return
 
     llm_conf = {"api_key": os.getenv("OPENAI_APIKEY")}

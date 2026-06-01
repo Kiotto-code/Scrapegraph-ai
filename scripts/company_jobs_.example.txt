@@ -1,0 +1,4 @@
+# Company Name | Homepage URL
+Petronas | https://www.petronas.com/
+JPMorgan | https://www.jpmorgan.com/MY/en/about-us
+PPG | https://www.ppg.com/en-US
