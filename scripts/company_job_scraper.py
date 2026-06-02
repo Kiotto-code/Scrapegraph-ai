@@ -139,6 +139,54 @@ def gather_job_links(page) -> List[str]:
     return sorted(links)
 
 
+def discover_pagination_urls(page, max_pages: int = 10) -> List[str]:
+    """Find candidate pagination URLs from the current page.
+
+    Looks for anchors containing common pagination query params (page, pg)
+    or numeric page links. Returns absolute URLs (unique, stable order).
+    """
+    anchors = page.query_selector_all("a[href]")
+    candidates = []
+    for a in anchors:
+        href = a.get_attribute("href") or ""
+        if not href:
+            continue
+        h = href.lower()
+        if any(p in h for p in ["?page=", "&page=", "page=", "?pg=", "&pg=", "/page/", "/pg/"]):
+            candidates.append(_normalize_url(page.url, href))
+        else:
+            # numeric link text like '2', '3', etc.
+            text = (_clean_text(a.inner_text()) or "").strip()
+            if re.fullmatch(r"\d{1,3}", text):
+                candidates.append(_normalize_url(page.url, href))
+
+    # dedupe while preserving order
+    seen = set()
+    out = []
+    for url in candidates:
+        if url in seen:
+            continue
+        seen.add(url)
+        out.append(url)
+        if len(out) >= max_pages:
+            break
+    return out
+
+
+def construct_query_pages(base_url: str, max_pages: int = 10) -> List[str]:
+    """Construct simple ?page=N variants for a base URL if none are found.
+
+    Only used as a fallback when no explicit pagination anchors exist.
+    """
+    pages = []
+    sep = "?"
+    if "?" in base_url:
+        sep = "&"
+    for p in range(2, max_pages + 1):
+        pages.append(f"{base_url}{sep}page={p}")
+    return pages
+
+
 def _find_first_heading_index(lines: List[str], candidates: List[str]) -> Optional[int]:
     lowered_candidates = [candidate.lower() for candidate in candidates]
     for index, line in enumerate(lines):
@@ -314,6 +362,28 @@ def scrape_company(page, source: Source, max_jobs: int, portal_fallback: Optiona
     if len(job_links) < 5:
         page.wait_for_timeout(4000)
         job_links = gather_job_links(page)
+
+    # If not enough links found, attempt to follow pagination pages (numeric or ?page=N)
+    if len(job_links) < max_jobs:
+        pagination_urls = discover_pagination_urls(page, max_pages=8)
+        if not pagination_urls:
+            # try simple ?page=N construction as a last resort
+            pagination_urls = construct_query_pages(page.url, max_pages=8)
+
+        for purl in pagination_urls:
+            if len(job_links) >= max_jobs:
+                break
+            try:
+                print(f"[{source.company}] Following pagination: {purl}")
+                _goto_and_wait(page, purl)
+                new_links = gather_job_links(page)
+                for l in new_links:
+                    if l not in job_links:
+                        job_links.append(l)
+                # small delay to let JS render next page
+                page.wait_for_timeout(1000)
+            except Exception as exc:
+                print(f"[{source.company}] Pagination visit failed: {exc}")
 
     if not job_links and careers and careers != page.url:
         # If the marketing careers page had no jobs, retry that page and re-discover a portal.
