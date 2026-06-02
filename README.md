@@ -119,12 +119,11 @@ Real run (headless Playwright):
 ./script.sh /tmp/ppg_source.txt --out-dir /tmp/scrape_outputs --headless
 ```
 
-If a company homepage links to a marketing "Careers" page (no listings), use the `--fallback-portal` option when running `company_job_scraper.py` to point to the real job portal. For example:
+The scraper automatically discovers job portals by navigating through careers pages and detecting links to major ATS platforms (Greenhouse, Lever, Workday, iCIMS, Oracle HCM, SmartRecruiters, and more). No manual `--fallback-portal` is needed.
 
 ```bash
 .venv/bin/python scripts/company_job_scraper.py --sources-file /tmp/ppg_source.txt \
-  --out /tmp/ppg_jobs.json --out-csv /tmp/ppg_jobs.csv --headless \
-  --fallback-portal https://careers.ppg.com/us/en/search-results
+  --out /tmp/ppg_jobs.json --out-csv /tmp/ppg_jobs.csv --headless
 ```
 
 

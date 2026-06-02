@@ -1,6 +1,31 @@
 {
   "jobs": [
     {
+      "role": "Balancing life through purpose",
+      "title": "Balancing life through purpose",
+      "department": "s",
+      "company": "Petronas",
+      "location": null,
+      "posting_date": null,
+      "remote_status": null,
+      "employment_type": null,
+      "required_skills": [
+        "Association for Wives and Women Staff of PETRONAS or Persatuan Isteri-Isteri Kakitangan & Kakitangan Wanita PETRONAS (PETRONITA) was established to foster unity amongst PETRONAS employees’ spouses and female employees through recreational, charitable, and experience-sharing activities.",
+        "PETRONAS Leading Women Network (PLWN) is a strategic initiative launched in 2015, dedicated to advancing gender inclusion within PETRONAS as part of our Diversity and Inclusion (D&I) commitment. It aims to empower the women workforce, fostering a work environment that is both enabling and fulfilling in line with the organisation’s D&I goals.",
+        "Know more about PETRONAS",
+        "Career Opportunities",
+        "Let's go further together, with the right tools and mindsets. Because when empowered, anything is possible.",
+        "Read more",
+        "Career Opportunities",
+        "Let's go further together, with the right tools and mindsets. Because when empowered, anything is possible.",
+        "Read more",
+        "Breadcrumbs"
+      ],
+      "description": "Find out more about how you can progress your career and discover what working for PETRONAS is really like.",
+      "apply_url": "https://www.petronas.com/careers/lifepetronas",
+      "source_url": "https://www.petronas.com/"
+    },
+    {
       "role": "Lead Software Engineer - C++, Data Structures- Electronic Trading Tech",
       "title": "Lead Software Engineer - C++, Data Structures- Electronic Trading Tech",
       "department": "Commercial & Investment Bank Posting Date 06/02/2026, 02",
@@ -18,7 +43,7 @@
       ],
       "description": "We have an opportunity to work on innovative, mission-critical technology in a collaborative, global environment. Be part of a team that values creativity, initiative, and professional growth.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210704870",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Part Time Associate Banker Newport Beach (30 hours)",
@@ -41,7 +66,7 @@
       ],
       "description": "This position is subject to Section 19 of the Federal Deposit Insurance Act. As such, an employment offer for this position is contingent on JPMorganChase’s review of criminal conviction history, including pretrial diversions or program entries.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210708024",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "International Private Bank - South East Asia - Markets Business Manager - Vice President - Singapore",
@@ -65,7 +90,7 @@
       ],
       "description": "Join our Business Management team as a Market Business Manager (VP) to drive transformative growth across South East Asia—partnering with Market Heads to align priorities, streamline collaboration, proactively mitigate risk, and turn AI/LLM-driven data insights into decisive action in a dynamic, fast-paced environment.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210718289",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Credit Support Analyst",
@@ -87,7 +112,7 @@
       ],
       "description": "Join JPMorganChase’s Wholesale Lending Services and help safeguard credit quality across our Commercial & Investment Bank portfolio. Partner with Risk, Credit, and Operations to ensure borrowers meet complex financial and legal covenants. Grow your expertise in syndicated and bilateral loan structures while making a measurable impact.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210723153",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Fund Servicing Manager",
@@ -112,7 +137,7 @@
       ],
       "description": "JPMorganChase, one of the oldest financial institutions, offers innovative financial solutions to millions of consumers, small businesses and many of the world’s most prominent corporate, institutional and government clients under the J.P. Morgan and Chase brands. Our history spans over 200 years and today we are a leader in investment banking, consumer and small business banking, commercial banking, financial transaction processing and asset management. We recognize that our people are our strength and the diverse talents they bring to our global workforce are directly linked to our success. We are an equal opportunity employer and place a high value on diversity and inclusion at our company. We do not discriminate on the basis of any protected attribute, including race, religion, color, national origin, gender, sexual orientation, gender identity, gender expression, age, marital or veteran status, pregnancy or disability, or any other basis protected under applicable law. We also make reasonable accommodations for applicants’ and employees’ religious practices and beliefs, as well as mental health or physical disability needs. Visit our FAQs for more information about requesting an accommodation.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210726528",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Securities Services - Reference Data Sr Product Delivery Associate",
@@ -133,7 +158,7 @@
       ],
       "description": "Are you passionate about data and product development? As an Associate in Reference Data Product Development, you will have the opportunity to contribute to shaping the future of our Reference Data platforms, collaborating with diverse teams to deliver impactful solutions. You will play a key role in improving data quality and coverage, working in a fast-paced environment where your ideas and expertise will make a difference. If you thrive on problem-solving and continuous improvement, we encourage you to apply.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210732148",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Loan Origination Specialist III",
@@ -156,7 +181,7 @@
       ],
       "description": "Join our team as a Loan Origination Specialist III! Play a vital role in the Deal Setup process, where your attention to detail and ability to interpret legal and credit documents will directly impact our clients’ success. Deal Setup requires attention to detail, data-entry, and ability to interpret legal/credit documents. Data sourced from documents is used to enrich the loan system with customer/facility details as well as funding details, pricing rules, repayment schedules, and invoice set-up for principal, interest, and fees.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210732826",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Business Process Modeler",
@@ -181,7 +206,7 @@
       ],
       "description": "Shape how Home Lending work gets done—at scale. In this role, you’ll turn complex, cross-functional workflows into clear process models that unlock operational excellence, strengthen risk and control outcomes, and accelerate automation and intelligent solutions. You’ll collaborate with business and technology partners to identify bottlenecks, design improved future-state journeys, and enable data transformation and generative AI-driven improvements. If you like connecting strategy to execution and making change real, this is an opportunity to create meaningful impact.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210743452",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Executive Director - Payment Operations",
@@ -204,7 +229,7 @@
       ],
       "description": "Run critical payments foreign exchange operations during Europe hours and help keep global markets moving. In this senior leadership role based in Mumbai, you will strengthen day-to-day execution, lead incident response, and ensure clear, timely escalation. You will partner across Asia and Europe to deliver consistent service outcomes and measurable operational resilience. You will also drive major change initiatives, including same-day currency settlement and currency migration and insourcing delivery.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210748453",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "US Payroll Specialist",
@@ -221,7 +246,32 @@
       ],
       "description": "Join the HR Operations team as a US Payroll Specialist supporting accurate and timely payroll services. In this role, you will handle payroll and final pay inquiries end-to-end, apply policy and regulatory understanding to real employee cases, and partner with HR stakeholders to deliver clear, professional outcomes. You will gain exposure to complex payroll scenarios including terminations, final settlements, retro and missing pay, and exception handling. This opportunity is ideal for someone who is analytical, detail-oriented, customer-focused, and comfortable working in a structured, service-measured environment.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210748690",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
+    },
+    {
+      "role": "Lead Software Engineer - Python full stack",
+      "title": "Lead Software Engineer - Python full stack",
+      "department": "Commercial & Investment Bank Posting Date 06/02/2026, 04",
+      "company": "JPMorgan",
+      "location": "s Ground to Fifth Floor G,H Block, EMBASSYTECH VILLAGE-PARCEL 5 OUTER RING RD DEVERABEESANAHALLI VILLA, Bengaluru, IN-KA, 560103, IN Apply Before 06/06/2026, 12",
+      "posting_date": "on 12",
+      "remote_status": null,
+      "employment_type": "Full Time",
+      "required_skills": [
+        "Formal training or certification on software engineering concepts and 5+ years applied experience",
+        "Hands-on practical experience delivering system design, application development, testing, and operational stability",
+        "Advanced in one or more programming language(s) Python",
+        "Strong Analytical and problem solving skills.",
+        "Solid technology background with experience in object oriented programming.",
+        "Proficiency in automation and continuous delivery methods",
+        "Proficient in all aspects of the Software Development Life Cycle",
+        "Advanced understanding of agile methodologies such as CI/CD, Application Resiliency, and Security",
+        "Demonstrated proficiency in software applications and technical processes within a technical discipline (e.g., cloud, artificial intelligence, machine learning, mobile, etc.)",
+        "Practical cloud native experience"
+      ],
+      "description": "Carry out critical tech solutions across multiple technical areas as an integral part of an agile team",
+      "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210749304",
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Securities Services - Complex Assets - Associate, Sydney",
@@ -246,7 +296,7 @@
       ],
       "description": "Complex Assets Product Management sits within Securities Services. The team is not a standalone product group — instead it works alongside Middle Office, Fund Accounting and Margin Services to shape and deliver an integrated and efficient operating model for our clients. It is responsible for product strategy, client experience design, and service governance across OTC Derivatives, Contracts for Difference, and Loans. The team defines and positions the product offering to clients while ensuring it evolves alongside changing market dynamics, regulatory requirements, and client needs.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210750295",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "LEC- Vice President",
@@ -271,7 +321,7 @@
       ],
       "description": "You are a strategic thinker passionate about driving solutions in Legal Entity Controller. You have found the right team.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210750332",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Risk Reporting - Associate",
@@ -290,7 +340,7 @@
       ],
       "description": "You are a strategic thinker passionate about driving solutions in Liquidity Reporting & Analytics. You have found the right team. Responsible to ensure the accuracy and completeness of all information in the firm’s internal and regulatory Liquidity Risk and Interest Rate Risk reporting and analytics",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210751416",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Client Data Manager III",
@@ -315,7 +365,7 @@
       ],
       "description": "Join a high‑impact role within Corporate and Investment Banking, where you will lead KYC operations and governance across complex client segments. This position offers the opportunity to drive strategic transformation, strengthen regulatory compliance, and build high‑performing teams while partnering closely with key stakeholders to deliver a best‑in‑class client onboarding experience.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752155",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Investment Decisioning - Cards Finance - Associate - Bengaluru",
@@ -340,7 +390,7 @@
       ],
       "description": "The Cards & Connected Commerce Finance team provides real-time insights to Cards & Connected Commerce leadership on Business Performance, Annual operating plans, Standard financial reporting, Bespoke analysis, Investment decisioning, Marketing analytics, Card P&A, Card Forecasting Modelling and Financial Analytics. The team is structured with dedicated CFO’s or CFO support teams, with each card product having its own on dedicated P&L and subsequent Balance sheet impacts. Team is adept translating business scenarios to actionable financial insights and is called upon to help on real time business decisioning on a variety of topics.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752160",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Payment Lifecycle Specialist",
@@ -365,7 +415,7 @@
       ],
       "description": "JPMorganChase, one of the oldest financial institutions, offers innovative financial solutions to millions of consumers, small businesses and many of the world’s most prominent corporate, institutional and government clients under the J.P. Morgan and Chase brands. Our history spans over 200 years and today we are a leader in investment banking, consumer and small business banking, commercial banking, financial transaction processing and asset management. We recognize that our people are our strength and the diverse talents they bring to our global workforce are directly linked to our success. We are an equal opportunity employer and place a high value on diversity and inclusion at our company. We do not discriminate on the basis of any protected attribute, including race, religion, color, national origin, gender, sexual orientation, gender identity, gender expression, age, marital or veteran status, pregnancy or disability, or any other basis protected under applicable law. We also make reasonable accommodations for applicants’ and employees’ religious practices and beliefs, as well as mental health or physical disability needs. Visit our FAQs for more information about requesting an accommodation.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752238",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Account Specialist I - Retail and Card Services - Taguig",
@@ -390,7 +440,7 @@
       ],
       "description": "At JPMorganChase, you'll be at the forefront of delivering exceptional customer service, where each day presents the same opportunities to make a meaningful difference. You'll engage in creative and exciting work, consistently offering innovative solutions and options to assist our valued customers. While the duties may be routine, your role remains dynamic and impactful, enabling you to build strong relationships and contribute to our business success.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752267",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Fraud Specialist I - Taguig",
@@ -415,7 +465,7 @@
       ],
       "description": "At JPMorganChase, you'll be at the forefront of delivering exceptional customer service, where each day presents the same opportunities to make a meaningful difference. You'll engage in creative and exciting work, consistently offering innovative solutions and options to assist our valued customers. While the duties may be routine, your role remains dynamic and impactful, enabling you to build strong relationships and contribute to our business success.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752275",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Collection Specialist I - Taguig",
@@ -440,7 +490,7 @@
       ],
       "description": "Join the Call Center team that is assisting customers find solutions in one of the world’s most innovative banks",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752310",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Talent Acquisition Support & Onboarding - Intelligent Solutions Associate",
@@ -465,7 +515,7 @@
       ],
       "description": "Build scalable, audit-ready HR onboarding and talent acquisition automations using UiPath, Alteryx, SharePoint, and Tableau—streamlining workflows end-to-end to improve speed, quality, and operational resilience",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752668",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Fund Servicing Associate",
@@ -490,7 +540,7 @@
       ],
       "description": "JPMorganChase, one of the oldest financial institutions, offers innovative financial solutions to millions of consumers, small businesses and many of the world’s most prominent corporate, institutional and government clients under the J.P. Morgan and Chase brands. Our history spans over 200 years and today we are a leader in investment banking, consumer and small business banking, commercial banking, financial transaction processing and asset management. We recognize that our people are our strength and the diverse talents they bring to our global workforce are directly linked to our success. We are an equal opportunity employer and place a high value on diversity and inclusion at our company. We do not discriminate on the basis of any protected attribute, including race, religion, color, national origin, gender, sexual orientation, gender identity, gender expression, age, marital or veteran status, pregnancy or disability, or any other basis protected under applicable law. We also make reasonable accommodations for applicants’ and employees’ religious practices and beliefs, as well as mental health or physical disability needs. Visit our FAQs for more information about requesting an accommodation.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752694",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Part Time (30 Hours) Associate Banker, South Coast Branch, Santa Ana, CA Bilingual Spanish Required",
@@ -514,7 +564,7 @@
       ],
       "description": "This position is subject to Section 19 of the Federal Deposit Insurance Act. As such, an employment offer for this position is contingent on JPMorganChase’s review of criminal conviction history, including pretrial diversions or program entries.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210753138",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Part Time (20 Hours) Associate Banker, Downey Paramount Branch, Downey, CA",
@@ -537,7 +587,7 @@
       ],
       "description": "This position is subject to Section 19 of the Federal Deposit Insurance Act. As such, an employment offer for this position is contingent on JPMorganChase’s review of criminal conviction history, including pretrial diversions or program entries.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210753434",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Lead Technical Program Manager",
@@ -560,28 +610,7 @@
       ],
       "description": "Leverage your deep technical expertise and leadership to guide cutting-edge projects, fostering growth and innovation in a dynamic environment.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210753616",
-      "source_url": "https://www.jpmorgan.com"
-    },
-    {
-      "role": "Payments - Kinexys Product Sales and Solutioning - Analyst",
-      "title": "Payments - Kinexys Product Sales and Solutioning - Analyst",
-      "department": "Commercial & Investment Bank Posting Date 06/02/2026, 12",
-      "company": "JPMorgan",
-      "location": "s CapitaSpring 88 Market Street, Singapore, 048948, SG Job Schedule Full time JOB DESCRIPTION Job Responsibilities",
-      "posting_date": "on 06",
-      "remote_status": null,
-      "employment_type": "Full Time",
-      "required_skills": [
-        "Minimum 1 year of working experience in banking, fintech industry.",
-        "Bachelor's degree in Mathematics, Statistics, Physics, Computer Science, Business, or a related field.",
-        "Possess extensive knowledge and understanding of payments and transactional foreign exchange (FX) products, along with their client use cases.",
-        "Demonstrate exceptional interpersonal and negotiation skills, excellent client facing skills",
-        "Ability to develop collaborative relationships with key internal partners - sales, product development, client service and bankers",
-        "Detail-oriented, with a proven ability to execute tasks and drive results."
-      ],
-      "description": "Required qualifications, capabilities, and skills",
-      "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210753673",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Lead Software Engineer - C++, Data Structures- Electronic Trading Tech",
@@ -601,7 +630,7 @@
       ],
       "description": "We have an opportunity to work on innovative, mission-critical technology in a collaborative, global environment. Be part of a team that values creativity, initiative, and professional growth.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210704870/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Part Time Associate Banker Newport Beach (30 hours)",
@@ -624,7 +653,7 @@
       ],
       "description": "This position is subject to Section 19 of the Federal Deposit Insurance Act. As such, an employment offer for this position is contingent on JPMorganChase’s review of criminal conviction history, including pretrial diversions or program entries.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210708024/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "International Private Bank - South East Asia - Markets Business Manager - Vice President - Singapore",
@@ -648,7 +677,7 @@
       ],
       "description": "Join our Business Management team as a Market Business Manager (VP) to drive transformative growth across South East Asia—partnering with Market Heads to align priorities, streamline collaboration, proactively mitigate risk, and turn AI/LLM-driven data insights into decisive action in a dynamic, fast-paced environment.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210718289/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Credit Support Analyst",
@@ -670,7 +699,7 @@
       ],
       "description": "Join JPMorganChase’s Wholesale Lending Services and help safeguard credit quality across our Commercial & Investment Bank portfolio. Partner with Risk, Credit, and Operations to ensure borrowers meet complex financial and legal covenants. Grow your expertise in syndicated and bilateral loan structures while making a measurable impact.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210723153/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Fund Servicing Manager",
@@ -695,7 +724,7 @@
       ],
       "description": "JPMorganChase, one of the oldest financial institutions, offers innovative financial solutions to millions of consumers, small businesses and many of the world’s most prominent corporate, institutional and government clients under the J.P. Morgan and Chase brands. Our history spans over 200 years and today we are a leader in investment banking, consumer and small business banking, commercial banking, financial transaction processing and asset management. We recognize that our people are our strength and the diverse talents they bring to our global workforce are directly linked to our success. We are an equal opportunity employer and place a high value on diversity and inclusion at our company. We do not discriminate on the basis of any protected attribute, including race, religion, color, national origin, gender, sexual orientation, gender identity, gender expression, age, marital or veteran status, pregnancy or disability, or any other basis protected under applicable law. We also make reasonable accommodations for applicants’ and employees’ religious practices and beliefs, as well as mental health or physical disability needs. Visit our FAQs for more information about requesting an accommodation.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210726528/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Securities Services - Reference Data Sr Product Delivery Associate",
@@ -716,7 +745,7 @@
       ],
       "description": "Are you passionate about data and product development? As an Associate in Reference Data Product Development, you will have the opportunity to contribute to shaping the future of our Reference Data platforms, collaborating with diverse teams to deliver impactful solutions. You will play a key role in improving data quality and coverage, working in a fast-paced environment where your ideas and expertise will make a difference. If you thrive on problem-solving and continuous improvement, we encourage you to apply.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210732148/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Loan Origination Specialist III",
@@ -739,7 +768,7 @@
       ],
       "description": "Join our team as a Loan Origination Specialist III! Play a vital role in the Deal Setup process, where your attention to detail and ability to interpret legal and credit documents will directly impact our clients’ success. Deal Setup requires attention to detail, data-entry, and ability to interpret legal/credit documents. Data sourced from documents is used to enrich the loan system with customer/facility details as well as funding details, pricing rules, repayment schedules, and invoice set-up for principal, interest, and fees.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210732826/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Business Process Modeler",
@@ -764,7 +793,7 @@
       ],
       "description": "Shape how Home Lending work gets done—at scale. In this role, you’ll turn complex, cross-functional workflows into clear process models that unlock operational excellence, strengthen risk and control outcomes, and accelerate automation and intelligent solutions. You’ll collaborate with business and technology partners to identify bottlenecks, design improved future-state journeys, and enable data transformation and generative AI-driven improvements. If you like connecting strategy to execution and making change real, this is an opportunity to create meaningful impact.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210743452/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Executive Director - Payment Operations",
@@ -787,7 +816,7 @@
       ],
       "description": "Run critical payments foreign exchange operations during Europe hours and help keep global markets moving. In this senior leadership role based in Mumbai, you will strengthen day-to-day execution, lead incident response, and ensure clear, timely escalation. You will partner across Asia and Europe to deliver consistent service outcomes and measurable operational resilience. You will also drive major change initiatives, including same-day currency settlement and currency migration and insourcing delivery.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210748453/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "US Payroll Specialist",
@@ -804,7 +833,32 @@
       ],
       "description": "Join the HR Operations team as a US Payroll Specialist supporting accurate and timely payroll services. In this role, you will handle payroll and final pay inquiries end-to-end, apply policy and regulatory understanding to real employee cases, and partner with HR stakeholders to deliver clear, professional outcomes. You will gain exposure to complex payroll scenarios including terminations, final settlements, retro and missing pay, and exception handling. This opportunity is ideal for someone who is analytical, detail-oriented, customer-focused, and comfortable working in a structured, service-measured environment.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210748690/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
+    },
+    {
+      "role": "Lead Software Engineer - Python full stack",
+      "title": "Lead Software Engineer - Python full stack",
+      "department": "Commercial & Investment Bank Posting Date 06/02/2026, 04",
+      "company": "JPMorgan",
+      "location": "s Ground to Fifth Floor G,H Block, EMBASSYTECH VILLAGE-PARCEL 5 OUTER RING RD DEVERABEESANAHALLI VILLA, Bengaluru, IN-KA, 560103, IN Apply Before 06/06/2026, 12",
+      "posting_date": "on 12",
+      "remote_status": null,
+      "employment_type": "Full Time",
+      "required_skills": [
+        "Formal training or certification on software engineering concepts and 5+ years applied experience",
+        "Hands-on practical experience delivering system design, application development, testing, and operational stability",
+        "Advanced in one or more programming language(s) Python",
+        "Strong Analytical and problem solving skills.",
+        "Solid technology background with experience in object oriented programming.",
+        "Proficiency in automation and continuous delivery methods",
+        "Proficient in all aspects of the Software Development Life Cycle",
+        "Advanced understanding of agile methodologies such as CI/CD, Application Resiliency, and Security",
+        "Demonstrated proficiency in software applications and technical processes within a technical discipline (e.g., cloud, artificial intelligence, machine learning, mobile, etc.)",
+        "Practical cloud native experience"
+      ],
+      "description": "Carry out critical tech solutions across multiple technical areas as an integral part of an agile team",
+      "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210749304/?page=2",
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Securities Services - Complex Assets - Associate, Sydney",
@@ -829,7 +883,7 @@
       ],
       "description": "Complex Assets Product Management sits within Securities Services. The team is not a standalone product group — instead it works alongside Middle Office, Fund Accounting and Margin Services to shape and deliver an integrated and efficient operating model for our clients. It is responsible for product strategy, client experience design, and service governance across OTC Derivatives, Contracts for Difference, and Loans. The team defines and positions the product offering to clients while ensuring it evolves alongside changing market dynamics, regulatory requirements, and client needs.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210750295/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "LEC- Vice President",
@@ -854,7 +908,7 @@
       ],
       "description": "You are a strategic thinker passionate about driving solutions in Legal Entity Controller. You have found the right team.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210750332/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Risk Reporting - Associate",
@@ -873,7 +927,7 @@
       ],
       "description": "You are a strategic thinker passionate about driving solutions in Liquidity Reporting & Analytics. You have found the right team. Responsible to ensure the accuracy and completeness of all information in the firm’s internal and regulatory Liquidity Risk and Interest Rate Risk reporting and analytics",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210751416/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Client Data Manager III",
@@ -898,7 +952,7 @@
       ],
       "description": "Join a high‑impact role within Corporate and Investment Banking, where you will lead KYC operations and governance across complex client segments. This position offers the opportunity to drive strategic transformation, strengthen regulatory compliance, and build high‑performing teams while partnering closely with key stakeholders to deliver a best‑in‑class client onboarding experience.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752155/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Investment Decisioning - Cards Finance - Associate - Bengaluru",
@@ -923,7 +977,7 @@
       ],
       "description": "The Cards & Connected Commerce Finance team provides real-time insights to Cards & Connected Commerce leadership on Business Performance, Annual operating plans, Standard financial reporting, Bespoke analysis, Investment decisioning, Marketing analytics, Card P&A, Card Forecasting Modelling and Financial Analytics. The team is structured with dedicated CFO’s or CFO support teams, with each card product having its own on dedicated P&L and subsequent Balance sheet impacts. Team is adept translating business scenarios to actionable financial insights and is called upon to help on real time business decisioning on a variety of topics.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752160/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Payment Lifecycle Specialist",
@@ -948,7 +1002,7 @@
       ],
       "description": "JPMorganChase, one of the oldest financial institutions, offers innovative financial solutions to millions of consumers, small businesses and many of the world’s most prominent corporate, institutional and government clients under the J.P. Morgan and Chase brands. Our history spans over 200 years and today we are a leader in investment banking, consumer and small business banking, commercial banking, financial transaction processing and asset management. We recognize that our people are our strength and the diverse talents they bring to our global workforce are directly linked to our success. We are an equal opportunity employer and place a high value on diversity and inclusion at our company. We do not discriminate on the basis of any protected attribute, including race, religion, color, national origin, gender, sexual orientation, gender identity, gender expression, age, marital or veteran status, pregnancy or disability, or any other basis protected under applicable law. We also make reasonable accommodations for applicants’ and employees’ religious practices and beliefs, as well as mental health or physical disability needs. Visit our FAQs for more information about requesting an accommodation.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752238/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Account Specialist I - Retail and Card Services - Taguig",
@@ -973,7 +1027,7 @@
       ],
       "description": "At JPMorganChase, you'll be at the forefront of delivering exceptional customer service, where each day presents the same opportunities to make a meaningful difference. You'll engage in creative and exciting work, consistently offering innovative solutions and options to assist our valued customers. While the duties may be routine, your role remains dynamic and impactful, enabling you to build strong relationships and contribute to our business success.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752267/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Fraud Specialist I - Taguig",
@@ -998,7 +1052,7 @@
       ],
       "description": "At JPMorganChase, you'll be at the forefront of delivering exceptional customer service, where each day presents the same opportunities to make a meaningful difference. You'll engage in creative and exciting work, consistently offering innovative solutions and options to assist our valued customers. While the duties may be routine, your role remains dynamic and impactful, enabling you to build strong relationships and contribute to our business success.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752275/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Collection Specialist I - Taguig",
@@ -1023,7 +1077,7 @@
       ],
       "description": "Join the Call Center team that is assisting customers find solutions in one of the world’s most innovative banks",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752310/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Talent Acquisition Support & Onboarding - Intelligent Solutions Associate",
@@ -1048,7 +1102,7 @@
       ],
       "description": "Build scalable, audit-ready HR onboarding and talent acquisition automations using UiPath, Alteryx, SharePoint, and Tableau—streamlining workflows end-to-end to improve speed, quality, and operational resilience",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752668/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Fund Servicing Associate",
@@ -1073,7 +1127,7 @@
       ],
       "description": "JPMorganChase, one of the oldest financial institutions, offers innovative financial solutions to millions of consumers, small businesses and many of the world’s most prominent corporate, institutional and government clients under the J.P. Morgan and Chase brands. Our history spans over 200 years and today we are a leader in investment banking, consumer and small business banking, commercial banking, financial transaction processing and asset management. We recognize that our people are our strength and the diverse talents they bring to our global workforce are directly linked to our success. We are an equal opportunity employer and place a high value on diversity and inclusion at our company. We do not discriminate on the basis of any protected attribute, including race, religion, color, national origin, gender, sexual orientation, gender identity, gender expression, age, marital or veteran status, pregnancy or disability, or any other basis protected under applicable law. We also make reasonable accommodations for applicants’ and employees’ religious practices and beliefs, as well as mental health or physical disability needs. Visit our FAQs for more information about requesting an accommodation.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210752694/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Part Time (30 Hours) Associate Banker, South Coast Branch, Santa Ana, CA Bilingual Spanish Required",
@@ -1097,7 +1151,7 @@
       ],
       "description": "This position is subject to Section 19 of the Federal Deposit Insurance Act. As such, an employment offer for this position is contingent on JPMorganChase’s review of criminal conviction history, including pretrial diversions or program entries.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210753138/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Part Time (20 Hours) Associate Banker, Downey Paramount Branch, Downey, CA",
@@ -1120,7 +1174,7 @@
       ],
       "description": "This position is subject to Section 19 of the Federal Deposit Insurance Act. As such, an employment offer for this position is contingent on JPMorganChase’s review of criminal conviction history, including pretrial diversions or program entries.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210753434/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     },
     {
       "role": "Lead Technical Program Manager",
@@ -1143,28 +1197,7 @@
       ],
       "description": "Leverage your deep technical expertise and leadership to guide cutting-edge projects, fostering growth and innovation in a dynamic environment.",
       "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210753616/?page=2",
-      "source_url": "https://www.jpmorgan.com"
-    },
-    {
-      "role": "Payments - Kinexys Product Sales and Solutioning - Analyst",
-      "title": "Payments - Kinexys Product Sales and Solutioning - Analyst",
-      "department": "Commercial & Investment Bank Posting Date 06/02/2026, 12",
-      "company": "JPMorgan",
-      "location": "s CapitaSpring 88 Market Street, Singapore, 048948, SG Job Schedule Full time JOB DESCRIPTION Job Responsibilities",
-      "posting_date": "on 06",
-      "remote_status": null,
-      "employment_type": "Full Time",
-      "required_skills": [
-        "Minimum 1 year of working experience in banking, fintech industry.",
-        "Bachelor's degree in Mathematics, Statistics, Physics, Computer Science, Business, or a related field.",
-        "Possess extensive knowledge and understanding of payments and transactional foreign exchange (FX) products, along with their client use cases.",
-        "Demonstrate exceptional interpersonal and negotiation skills, excellent client facing skills",
-        "Ability to develop collaborative relationships with key internal partners - sales, product development, client service and bankers",
-        "Detail-oriented, with a proven ability to execute tasks and drive results."
-      ],
-      "description": "Required qualifications, capabilities, and skills",
-      "apply_url": "https://jpmc.fa.oraclecloud.com/hcmUI/CandidateExperience/en/sites/CX_1001/job/210753673/?page=2",
-      "source_url": "https://www.jpmorgan.com"
+      "source_url": "https://www.jpmorgan.com/MY/en/about-us"
     }
   ]
 }

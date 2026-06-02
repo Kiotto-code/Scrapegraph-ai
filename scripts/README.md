@@ -27,13 +27,6 @@ The old PPG entrypoint still works, but it now wraps the generic scraper:
 python scripts/ppg_scraper.py --out ppg_jobs.json --out-csv ppg_jobs.csv
 ```
 
-If you want to keep using `scripts/job_scraper.py` when the graph stack is unavailable, pass a fallback portal for known sites such as PPG:
-
-```bash
-python scripts/job_scraper.py --sources-file scripts/job_scraper_companies_example.txt --out results.json \
-	--fallback-portal https://careers.ppg.com/us/en/search-results
-```
-
 Notes
 - Use `Company Name | https://example.com` entries for better output labels.
 - The scraper discovers careers pages, then job links, then extracts `role`, `department`, `company`, and `required_skills`.
@@ -62,9 +55,9 @@ Quick examples:
 Notes:
 - `script.sh` will activate `.venv/bin/activate` if present.
 - `run_company_scraper.sh` accepts lines in the sources file either as `Company | URL` or just `https://...` (hostname used as company).
-- To force a known portal for a source, add `--fallback-portal` to the `company_job_scraper.py` call (see README.md top-level for example).
+- The scraper auto-discovers job portals (Greenhouse, Lever, Workday, iCIMS, Oracle HCM, SmartRecruiters, etc.) — no manual `--fallback-portal` needed.
 
 Troubleshooting:
-- If you see `Found careers link` but `Discovered 0 candidate job links`, the homepage likely points to a marketing careers page; use `--fallback-portal` with the real portal URL.
+- If you see `Discovered 0 candidate job links`, the homepage likely points to a marketing careers page with heavy JS rendering; try running without `--headless` or increasing timeouts.
 - For sites with heavy JS or bot protection, run without `--headless` to observe browser behavior, or increase timeouts in `company_job_scraper.py`.
 
