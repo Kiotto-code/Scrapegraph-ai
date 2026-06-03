@@ -22,7 +22,7 @@ import sys
 import warnings
 from dataclasses import dataclass
 from typing import Dict, List, Optional
-from urllib.parse import urljoin, urlparse
+from urllib.parse import parse_qsl, urlencode, urljoin, urlparse
 
 from playwright.sync_api import sync_playwright
 
@@ -132,6 +132,33 @@ _SKIP_HREF_FRAGMENTS = [
     "youtube.com", "mailto:", "tel:", "javascript:",
 ]
 
+# URL fragments that frequently appear on careers sites but are not
+# individual job detail pages.
+_NON_JOB_DETAIL_FRAGMENTS = [
+    "jobalerts", "job-alert", "job-alerts", "job-alerts",
+    "candidatehome", "talentcommunity", "talent-community",
+    "/login", "signin", "sign-in", "/register", "createprofile",
+]
+
+_TRACKING_OR_PAGINATION_QUERY_KEYS = {
+    "from", "s", "page", "pg", "start", "offset",
+    "utm_source", "utm_medium", "utm_campaign", "utm_term", "utm_content",
+    "gclid", "fbclid",
+}
+
+# URL path fragments that indicate an informational page, NOT a job portal.
+_NON_PORTAL_PATH_FRAGMENTS = [
+    "why-", "/why/", "life-at", "lifeat", "/life/", "life@",
+    "about-", "/about/", "people-", "/people/",
+    "culture", "benefits", "diversity", "inclusion",
+    "students", "graduates", "internship-program",
+    "scam", "fraud", "faq", "contact",
+]
+
+# Minimum number of job links to consider a portal discovery "confident".
+# If fewer links are found, the scraper will continue trying other portals.
+MIN_CONFIDENT_JOBS = 3
+
 SECTION_HEADINGS = [
     "required skills",
     "skills",
@@ -165,6 +192,21 @@ def _normalize_url(base_url: str, href: str) -> str:
     return urljoin(base_url, href).split("#")[0]
 
 
+def _canonicalize_discovered_job_url(url: str) -> str:
+    """Normalize discovered job URLs to avoid pagination/tracking duplicates."""
+    parsed = urlparse(url)
+    kept_query_items = [
+        (k, v)
+        for k, v in parse_qsl(parsed.query, keep_blank_values=True)
+        if k.lower() not in _TRACKING_OR_PAGINATION_QUERY_KEYS
+    ]
+    normalized_query = urlencode(kept_query_items, doseq=True)
+    normalized_path = re.sub(r"/{2,}", "/", parsed.path)
+    if normalized_path != "/":
+        normalized_path = normalized_path.rstrip("/")
+    return parsed._replace(path=normalized_path, query=normalized_query, fragment="").geturl()
+
+
 def _text_contains_keywords(text: str, keywords: List[str]) -> bool:
     lowered = text.lower()
     return any(keyword in lowered for keyword in keywords)
@@ -179,6 +221,47 @@ def _is_same_origin(url_a: str, url_b: str) -> bool:
         return ha.split(".")[-2:] == hb.split(".")[-2:]
     except Exception:
         return False
+
+
+def _extract_base_domain(url: str) -> Optional[str]:
+    """Extract the registrable domain from a URL (e.g. 'www.ppg.com' → 'ppg.com')."""
+    try:
+        hostname = urlparse(url).hostname or ""
+        parts = [p for p in hostname.split(".") if p]
+        if len(parts) < 2:
+            return None
+
+        # Handle common ccTLD patterns like shell.com.my -> shell.com.my
+        # (instead of the incorrect com.my).
+        common_cc_slds = {
+            "co.uk", "org.uk", "gov.uk", "ac.uk",
+            "com.au", "net.au", "org.au",
+            "co.nz", "org.nz", "govt.nz",
+            "com.my", "com.sg", "com.hk", "com.cn",
+            "co.jp", "ne.jp", "or.jp",
+            "com.br", "com.mx", "com.tr", "com.sa", "com.ar",
+        }
+        last_two = ".".join(parts[-2:])
+        if last_two in common_cc_slds and len(parts) >= 3:
+            return ".".join(parts[-3:])
+
+        return last_two
+    except Exception:
+        pass
+    return None
+
+
+def _guess_careers_subdomain(source_url: str) -> Optional[str]:
+    """Construct a careers.{domain} URL to try when no portal is found.
+
+    Many companies host their job board on a subdomain like
+    careers.ppg.com or careers.petronas.com even when the main website
+    doesn't link to it.
+    """
+    base = _extract_base_domain(source_url)
+    if base:
+        return f"https://careers.{base}"
+    return None
 
 
 def load_sources_from_file(path: str) -> List[Source]:
@@ -323,12 +406,22 @@ def find_portal_links(page) -> List[str]:
 
     Checks ATS domain links, iframes, preferred portal hints, and
     keyword-based heuristics.  Returns a ranked list of candidate portal URLs.
+    Filters out links that point to informational (non-portal) pages.
     """
     scored: List[tuple] = []  # (priority, url)
     seen: set = set()
+    page_host = urlparse(page.url).hostname or ""
+
+    def _is_non_portal(url: str) -> bool:
+        """Return True if the URL path looks like an informational page."""
+        path = urlparse(url).path.lower()
+        return any(frag in path for frag in _NON_PORTAL_PATH_FRAGMENTS)
 
     def _add(priority: int, url: str) -> None:
         if url and url not in seen and url != page.url:
+            # Penalise informational pages
+            if _is_non_portal(url):
+                priority = max(priority - 4, 0)
             seen.add(url)
             scored.append((priority, url))
 
@@ -349,7 +442,25 @@ def find_portal_links(page) -> List[str]:
         if any(hint in href_lower for hint in PREFERRED_PORTAL_HINTS):
             _add(8, _normalize_url(page.url, href))
 
-    # Priority 4 – generic careers portal hint in href
+    # Priority 4 – external careers subdomain (e.g. careers.petronas.com)
+    for anchor in anchors:
+        href = anchor.get_attribute("href") or ""
+        text = (_clean_text(anchor.inner_text()) or "").lower()
+        href_lower = href.lower()
+        try:
+            href_host = urlparse(href).hostname or ""
+        except Exception:
+            href_host = ""
+
+        # Careers subdomain that is different from current page
+        if href_host and href_host != page_host and href_host.startswith("careers"):
+            priority = 8
+            # Extra boost if the text contains action words
+            if any(kw in text for kw in ["apply", "search", "view", "browse", "open"]):
+                priority = 9
+            _add(priority, href)
+
+    # Priority 5 – generic careers portal hint in href
     for anchor in anchors:
         href = anchor.get_attribute("href") or ""
         text = (_clean_text(anchor.inner_text()) or "").lower()
@@ -363,7 +474,7 @@ def find_portal_links(page) -> List[str]:
         ]):
             _add(4, _normalize_url(page.url, href))
 
-    # Priority 5 – buttons / link-buttons with portal-like text
+    # Priority 6 – buttons / link-buttons with portal-like text
     for btn in page.query_selector_all("a, button"):
         text = (_clean_text(btn.inner_text()) or "").lower()
         if any(phrase in text for phrase in [
@@ -371,16 +482,17 @@ def find_portal_links(page) -> List[str]:
             "search jobs", "explore careers", "view all jobs",
             "see all jobs", "find a job", "search openings",
             "view opportunities", "current openings",
+            "apply for careers", "apply here",
         ]):
             href = btn.get_attribute("href") or ""
             onclick = btn.get_attribute("onclick") or ""
             if href and not href.startswith("#"):
-                _add(6, _normalize_url(page.url, href))
+                _add(7, _normalize_url(page.url, href))
             elif onclick:
                 # Try to extract URL from onclick="location.href='...'"
                 m = re.search(r"""(?:location\.href|window\.open)\s*\(\s*['"]([^'"]+)['"]""", onclick)
                 if m:
-                    _add(6, _normalize_url(page.url, m.group(1)))
+                    _add(7, _normalize_url(page.url, m.group(1)))
 
     scored.sort(key=lambda x: x[0], reverse=True)
     return [url for _, url in scored]
@@ -402,10 +514,22 @@ def gather_job_links(page) -> List[str]:
         # Skip non-job links
         if "/hvhapply" in href_lower or "jobcart" in href_lower:
             continue
+        if any(skip in href_lower for skip in _SKIP_HREF_FRAGMENTS):
+            continue
+        if any(skip in href_lower for skip in _NON_JOB_DETAIL_FRAGMENTS):
+            continue
+
+        # Parse the URL to isolate the path and query (ignoring domain)
+        parsed = urlparse(href_lower)
+        path_and_query = parsed.path + ("?" + parsed.query if parsed.query else "")
+
+        # Skip paths that clearly indicate non-job / informational pages
+        if any(frag in path_and_query for frag in _NON_PORTAL_PATH_FRAGMENTS):
+            continue
 
         matched = False
 
-        # Check expanded URL-pattern hints
+        # Check expanded URL-pattern hints (against the full href to catch ATS domains)
         if any(hint in href_lower for hint in JOB_PORTAL_HINTS):
             matched = True
 
@@ -416,15 +540,16 @@ def gather_job_links(page) -> List[str]:
             if len(text) > 10 and any(kw in text for kw in [
                 "apply now", "view details", "learn more", "view job",
             ]):
-                # But only if the href also hints at a job
-                if any(frag in href_lower for frag in [
+                # Only if the path/query (NOT the domain) also hints at a job
+                if any(frag in path_and_query for frag in [
                     "job", "position", "career", "role", "opening", "requisition",
                     "posting", "vacancy", "apply",
                 ]):
                     matched = True
 
         if matched:
-            links.add(_normalize_url(page.url, href))
+            discovered = _normalize_url(page.url, href)
+            links.add(_canonicalize_discovered_job_url(discovered))
 
     return sorted(links)
 
@@ -433,20 +558,198 @@ def gather_job_links(page) -> List[str]:
 # Pagination helpers
 # ---------------------------------------------------------------------------
 
+# Phrases that identify a "load more" / "show more" button on the page.
+_LOAD_MORE_PHRASES = [
+    "load more", "show more", "view more", "see more",
+    "more jobs", "more results", "more positions", "more openings",
+    "next page", "next results",
+    "show all", "view all", "see all",
+    "load more jobs", "show more jobs", "view more jobs",
+    "load more results", "show more results",
+]
+
+
+def _find_load_more_button(page):
+    """Locate a 'Load More' / 'Show More' button or link on the page.
+
+    Returns the first matching Playwright element handle, or *None*.
+    Searches ``<button>``, ``<a>``, and common ``<div>``/``<span>`` wrappers
+    using both visible text and ``aria-label``.
+    """
+    # Selectors ordered from most to least specific.
+    selectors = ["button", "a", "[role='button']", "div", "span"]
+
+    for selector in selectors:
+        elements = page.query_selector_all(selector)
+        for el in elements:
+            # Skip invisible / zero-size elements
+            if not el.is_visible():
+                continue
+
+            text = (_clean_text(el.inner_text()) or "").lower()
+            aria = (el.get_attribute("aria-label") or "").lower()
+
+            combined = f"{text} {aria}"
+            if any(phrase in combined for phrase in _LOAD_MORE_PHRASES):
+                # Avoid matching giant containers whose text *contains*
+                # the phrase but are not themselves buttons.
+                if len(text) > 80:
+                    continue
+                return el
+
+    return None
+
+
+def _click_load_more_for_jobs(
+    page, company: str, existing_links: List[str], max_jobs: int,
+    max_clicks: int = 50, wait_ms: int = 3000,
+) -> List[str]:
+    """Repeatedly click a 'Load More' button to reveal additional job listings.
+
+    Returns the accumulated list of job links (including *existing_links*).
+    Stops when:
+    - ``max_jobs`` is reached,
+    - ``max_clicks`` is exhausted,
+    - the button disappears, or
+    - two consecutive clicks yield no new links.
+    """
+    all_links = list(existing_links)
+    all_set = set(all_links)
+    no_new_streak = 0
+
+    for click_num in range(1, max_clicks + 1):
+        if len(all_links) >= max_jobs:
+            break
+
+        btn = _find_load_more_button(page)
+        if btn is None:
+            print(f"[{company}] No more 'Load More' button found after {click_num - 1} click(s)")
+            break
+
+        try:
+            # Scroll the button into view and click it.
+            btn.scroll_into_view_if_needed(timeout=3000)
+            btn.click(timeout=5000)
+            page.wait_for_timeout(wait_ms)
+        except Exception as exc:
+            print(f"[{company}] 'Load More' click failed: {exc}")
+            break
+
+        new_links = gather_job_links(page)
+        added = 0
+        for link in new_links:
+            if link not in all_set:
+                all_set.add(link)
+                all_links.append(link)
+                added += 1
+
+        print(f"[{company}] 'Load More' click #{click_num}: +{added} new links (total {len(all_links)})")
+
+        if added == 0:
+            no_new_streak += 1
+            if no_new_streak >= 2:
+                print(f"[{company}] No new links after 2 consecutive clicks — stopping")
+                break
+        else:
+            no_new_streak = 0
+
+    return all_links
+
+
+def _scroll_for_more_jobs(
+    page, company: str, existing_links: List[str], max_jobs: int,
+    max_scrolls: int = 15, wait_ms: int = 2000,
+) -> List[str]:
+    """Scroll the page to trigger infinite-scroll / lazy-loaded job listings.
+
+    Unlike the old ``_try_scroll_for_jobs`` this works *incrementally* on top
+    of already-discovered links and stops when no new links appear.
+    """
+    all_links = list(existing_links)
+    all_set = set(all_links)
+    no_new_streak = 0
+
+    for i in range(1, max_scrolls + 1):
+        if len(all_links) >= max_jobs:
+            break
+
+        page.mouse.wheel(0, 3000)
+        page.wait_for_timeout(wait_ms)
+
+        new_links = gather_job_links(page)
+        added = 0
+        for link in new_links:
+            if link not in all_set:
+                all_set.add(link)
+                all_links.append(link)
+                added += 1
+
+        if added:
+            print(f"[{company}] Scroll #{i}: +{added} new links (total {len(all_links)})")
+            no_new_streak = 0
+        else:
+            no_new_streak += 1
+            if no_new_streak >= 3:
+                print(f"[{company}] No new links after 3 consecutive scrolls — stopping")
+                break
+
+    return all_links
+
+
+def _discover_link_rel_next(page) -> List[str]:
+    """Extract pagination URLs from ``<link rel="next">`` tags.
+
+    Many ATS platforms (Phenom, etc.) embed SEO pagination hints as
+    ``<link rel="next" href="...">`` in the ``<head>``.  These are a
+    very reliable signal for the next page URL.
+    """
+    urls: List[str] = []
+    for link_el in page.query_selector_all('link[rel="next"]'):
+        href = link_el.get_attribute("href") or ""
+        if href:
+            urls.append(_normalize_url(page.url, href))
+    return urls
+
+
+def _detect_phenom_portal(page) -> bool:
+    """Return True if the current page appears to be a Phenom People portal."""
+    html = page.content() or ""
+    return "phenompeople.com" in html or "phenompeople" in html.lower() or "phApp" in html
+
+
 def discover_pagination_urls(page, max_pages: int = 10) -> List[str]:
     """Find candidate pagination URLs from the current page.
 
-    Looks for anchors containing common pagination query params (page, pg)
-    or numeric page links. Returns absolute URLs (unique, stable order).
+    Looks for:
+    - ``<link rel="next">`` tags (highest priority)
+    - Anchors containing pagination query params (page, pg, from, offset, start)
+    - Numeric page links
+
+    Returns absolute URLs (unique, stable order).
     """
-    anchors = page.query_selector_all("a[href]")
     candidates = []
+
+    # --- High-priority: <link rel="next"> ---
+    for url in _discover_link_rel_next(page):
+        candidates.append(url)
+
+    # --- Anchor-based discovery ---
+    _PAGINATION_PARAMS = [
+        "?page=", "&page=", "page=",
+        "?pg=", "&pg=",
+        "/page/", "/pg/",
+        # Phenom People / offset-based portals
+        "?from=", "&from=",
+        "?offset=", "&offset=",
+        "?start=", "&start=",
+    ]
+    anchors = page.query_selector_all("a[href]")
     for a in anchors:
         href = a.get_attribute("href") or ""
         if not href:
             continue
         h = href.lower()
-        if any(p in h for p in ["?page=", "&page=", "page=", "?pg=", "&pg=", "/page/", "/pg/"]):
+        if any(p in h for p in _PAGINATION_PARAMS):
             candidates.append(_normalize_url(page.url, href))
         else:
             # numeric link text like '2', '3', etc.
@@ -467,15 +770,22 @@ def discover_pagination_urls(page, max_pages: int = 10) -> List[str]:
     return out
 
 
-def construct_query_pages(base_url: str, max_pages: int = 10) -> List[str]:
-    """Construct simple ?page=N variants for a base URL if none are found.
+def construct_query_pages(base_url: str, max_pages: int = 10, page_size: int = 10) -> List[str]:
+    """Construct paginated URL variants for a base URL.
 
-    Only used as a fallback when no explicit pagination anchors exist.
+    Tries both ``?page=N`` (common) and ``?from=N&s=1`` (Phenom People)
+    patterns.  Only used as a fallback when no explicit pagination anchors
+    exist.
     """
     pages = []
-    sep = "?"
-    if "?" in base_url:
-        sep = "&"
+    sep = "&" if "?" in base_url else "?"
+
+    # Try ?from=N (Phenom People-style offset pagination)
+    # This is tried first because ?page= is more generic and more likely
+    # to be silently ignored by a Phenom portal.
+    for p in range(1, max_pages):
+        pages.append(f"{base_url}{sep}from={p * page_size}&s=1")
+    # Also try ?page=N as a fallback
     for p in range(2, max_pages + 1):
         pages.append(f"{base_url}{sep}page={p}")
     return pages
@@ -651,27 +961,132 @@ def _try_gather_jobs(page, company: str, wait_ms: int = 4000) -> List[str]:
 
 
 def _follow_pagination(page, job_links: List[str], company: str, max_jobs: int) -> List[str]:
-    """Follow pagination links to collect more job URLs."""
+    """Follow pagination to collect more job URLs.
+
+    Tries four strategies in order:
+    1. ``<link rel="next">`` chain (Phenom People and SEO-standard portals).
+    2. Traditional URL-based pagination (``?page=N`` anchor links).
+    3. Constructed ``?from=N`` / ``?page=N`` URLs as fallback.
+    4. 'Load More' / 'Show More' button clicking (JS-driven portals).
+    5. Scrolling (infinite-scroll portals).
+    """
     if len(job_links) >= max_jobs:
         return job_links
 
-    pagination_urls = discover_pagination_urls(page, max_pages=8)
-    if not pagination_urls:
-        pagination_urls = construct_query_pages(page.url, max_pages=8)
+    count_before = len(job_links)
+    portal_url = page.url
+    job_set = set(job_links)
+    pages_visited: set = set()
 
-    for purl in pagination_urls:
-        if len(job_links) >= max_jobs:
-            break
+    def _add_links(new_links: List[str]) -> int:
+        added = 0
+        for link in new_links:
+            if link not in job_set:
+                job_set.add(link)
+                job_links.append(link)
+                added += 1
+        return added
+
+    # --- Strategy 1: Follow <link rel="next"> chain ---
+    # Each page may have a <link rel="next"> pointing to the next page.
+    # We follow this chain until it ends or max_jobs is reached.
+    next_urls = _discover_link_rel_next(page)
+    if next_urls:
+        print(f"[{company}] Found <link rel=\"next\"> — following pagination chain")
+        max_chain = max_jobs // 5  # safety limit on chain length
+        chain_count = 0
+        while next_urls and len(job_links) < max_jobs and chain_count < max_chain:
+            next_url = next_urls[0]
+            if next_url in pages_visited:
+                break
+            pages_visited.add(next_url)
+            chain_count += 1
+            try:
+                print(f"[{company}] Pagination chain [{chain_count}]: {next_url}")
+                _goto_and_wait(page, next_url)
+                page.wait_for_timeout(2000)  # wait for JS rendering
+                new_links = gather_job_links(page)
+                added = _add_links(new_links)
+                print(f"[{company}]   +{added} new links (total {len(job_links)})")
+                if added == 0:
+                    # No new links on this page — might be at the end
+                    break
+                # Discover the next page
+                next_urls = _discover_link_rel_next(page)
+            except Exception as exc:
+                print(f"[{company}] Pagination chain failed: {exc}")
+                break
+
+    # --- Strategy 2: Traditional URL pagination (anchors) ---
+    if len(job_links) < max_jobs:
+        pagination_urls = discover_pagination_urls(page, max_pages=20)
+        # Filter out already-visited pages
+        pagination_urls = [u for u in pagination_urls if u not in pages_visited]
+        if pagination_urls:
+            for purl in pagination_urls:
+                if len(job_links) >= max_jobs:
+                    break
+                pages_visited.add(purl)
+                try:
+                    print(f"[{company}] Following pagination: {purl}")
+                    _goto_and_wait(page, purl)
+                    page.wait_for_timeout(2000)
+                    new_links = gather_job_links(page)
+                    added = _add_links(new_links)
+                    if added == 0:
+                        # If a page returns no new links, stop
+                        break
+                    page.wait_for_timeout(1000)
+                except Exception as exc:
+                    print(f"[{company}] Pagination visit failed: {exc}")
+
+    # --- Strategy 3: Construct ?from=N fallback URLs ---
+    if len(job_links) < max_jobs and len(job_links) - count_before < 5:
+        # Navigate back to portal so we can construct URLs from the base
         try:
-            print(f"[{company}] Following pagination: {purl}")
-            _goto_and_wait(page, purl)
-            new_links = gather_job_links(page)
-            for link in new_links:
-                if link not in job_links:
-                    job_links.append(link)
-            page.wait_for_timeout(1000)
-        except Exception as exc:
-            print(f"[{company}] Pagination visit failed: {exc}")
+            _goto_and_wait(page, portal_url)
+        except Exception:
+            pass
+        fallback_urls = construct_query_pages(portal_url, max_pages=20)
+        fallback_urls = [u for u in fallback_urls if u not in pages_visited]
+        no_new_streak = 0
+        for furl in fallback_urls:
+            if len(job_links) >= max_jobs or no_new_streak >= 2:
+                break
+            pages_visited.add(furl)
+            try:
+                print(f"[{company}] Trying constructed pagination: {furl}")
+                _goto_and_wait(page, furl)
+                page.wait_for_timeout(2000)
+                new_links = gather_job_links(page)
+                added = _add_links(new_links)
+                if added == 0:
+                    no_new_streak += 1
+                else:
+                    no_new_streak = 0
+            except Exception as exc:
+                print(f"[{company}] Constructed pagination failed: {exc}")
+                no_new_streak += 1
+
+    # --- Strategy 4: Click 'Load More' / 'Show More' buttons ---
+    if len(job_links) < max_jobs and len(job_links) - count_before < 5:
+        # Navigate back to the portal page
+        try:
+            _goto_and_wait(page, portal_url)
+        except Exception:
+            pass
+
+        if _find_load_more_button(page):
+            print(f"[{company}] Found 'Load More' button — clicking to load all jobs")
+            job_links = _click_load_more_for_jobs(
+                page, company, job_links, max_jobs,
+            )
+
+    # --- Strategy 5: Scroll for infinite-scroll portals ---
+    if len(job_links) < max_jobs and len(job_links) - count_before < 5:
+        job_links = _scroll_for_more_jobs(
+            page, company, job_links, max_jobs,
+        )
 
     return job_links
 
@@ -737,10 +1152,12 @@ def scrape_company(page, source: Source, max_jobs: int) -> List[Dict]:
         try:
             _goto_and_wait(page, portal_url)
             job_links = _try_gather_jobs(page, company)
-            if job_links:
+            if len(job_links) >= MIN_CONFIDENT_JOBS:
                 job_links = _follow_pagination(page, job_links, company, max_jobs)
                 print(f"[{company}] Discovered {len(job_links)} job links from direct portal")
                 break
+            elif job_links:
+                print(f"[{company}] Only {len(job_links)} link(s) from portal — trying others")
         except Exception as exc:
             print(f"[{company}] Failed to load ATS portal {portal_url}: {exc}")
 
@@ -758,10 +1175,12 @@ def scrape_company(page, source: Source, max_jobs: int) -> List[Dict]:
 
             # Check if the careers page itself lists jobs
             job_links = _try_gather_jobs(page, company)
-            if job_links:
+            if len(job_links) >= MIN_CONFIDENT_JOBS:
                 job_links = _follow_pagination(page, job_links, company, max_jobs)
                 print(f"[{company}] Discovered {len(job_links)} job links on careers page")
                 break
+            elif job_links:
+                print(f"[{company}] Only {len(job_links)} link(s) on careers page — looking for portal")
 
             # Look for portal links on the careers page
             portal_candidates = find_portal_links(page)
@@ -773,10 +1192,12 @@ def scrape_company(page, source: Source, max_jobs: int) -> List[Dict]:
                 try:
                     _goto_and_wait(page, portal_url)
                     job_links = _try_gather_jobs(page, company)
-                    if job_links:
+                    if len(job_links) >= MIN_CONFIDENT_JOBS:
                         job_links = _follow_pagination(page, job_links, company, max_jobs)
                         print(f"[{company}] Discovered {len(job_links)} job links from portal")
                         break
+                    elif job_links:
+                        print(f"[{company}] Only {len(job_links)} link(s) from portal — trying others")
                 except Exception as exc:
                     print(f"[{company}] Failed to load portal {portal_url}: {exc}")
 
@@ -820,7 +1241,47 @@ def scrape_company(page, source: Source, max_jobs: int) -> List[Dict]:
                 break
 
     # ------------------------------------------------------------------
-    # Step 4 – Last resort: scroll the page for lazy-loaded content
+    # Step 4 – Try guessing the careers subdomain
+    # ------------------------------------------------------------------
+    if len(job_links) < MIN_CONFIDENT_JOBS:
+        guessed_url = _guess_careers_subdomain(source.url)
+        if guessed_url:
+            print(f"[{company}] Trying guessed careers subdomain: {guessed_url}")
+            try:
+                _goto_and_wait(page, guessed_url)
+                guessed_jobs = _try_gather_jobs(page, company)
+                if guessed_jobs:
+                    # Also look for a portal on the guessed subdomain
+                    portal_on_sub = find_portal_links(page)
+                    if portal_on_sub:
+                        print(f"[{company}] Found {len(portal_on_sub)} portal(s) on careers subdomain")
+                        best_jobs = guessed_jobs
+                        best_url = guessed_url
+                        for p_url in portal_on_sub[:3]:
+                            try:
+                                _goto_and_wait(page, p_url)
+                                sub_jobs = _try_gather_jobs(page, company)
+                                if len(sub_jobs) > len(best_jobs):
+                                    best_jobs = sub_jobs
+                                    best_url = page.url
+                            except Exception:
+                                pass
+                        
+                        guessed_jobs = best_jobs
+                        if best_url != page.url:
+                            try:
+                                _goto_and_wait(page, best_url)
+                            except Exception:
+                                pass
+                    guessed_jobs = _follow_pagination(page, guessed_jobs, company, max_jobs)
+                    if len(guessed_jobs) > len(job_links):
+                        job_links = guessed_jobs
+                        print(f"[{company}] Discovered {len(job_links)} job links from careers subdomain")
+            except Exception as exc:
+                print(f"[{company}] Careers subdomain not reachable: {exc}")
+
+    # ------------------------------------------------------------------
+    # Step 5 – Last resort: scroll + Load More on the best page found
     # ------------------------------------------------------------------
     if not job_links:
         # Navigate back to the best portal/careers page found
@@ -829,12 +1290,19 @@ def scrape_company(page, source: Source, max_jobs: int) -> List[Dict]:
             else careers_candidates[0] if careers_candidates
             else source.url
         )
-        print(f"[{company}] Last resort: scrolling {best_page_url}")
+        print(f"[{company}] Last resort: trying Load More + scroll on {best_page_url}")
         try:
             _goto_and_wait(page, best_page_url)
-            job_links = _try_scroll_for_jobs(page, company)
+            # Try Load More first
+            if _find_load_more_button(page):
+                job_links = _click_load_more_for_jobs(
+                    page, company, job_links, max_jobs,
+                )
+            # Then scroll for any remaining
+            if not job_links:
+                job_links = _try_scroll_for_jobs(page, company)
         except Exception as exc:
-            print(f"[{company}] Last-resort scroll failed: {exc}")
+            print(f"[{company}] Last-resort failed: {exc}")
 
     # ------------------------------------------------------------------
     # Step 5 – Extract fields from each job page
@@ -867,7 +1335,7 @@ def parse_args() -> argparse.Namespace:
     parser.add_argument("--sources-file", required=True, help="File with company names and URLs")
     parser.add_argument("--out", default="jobs.json", help="Output JSON path")
     parser.add_argument("--out-csv", default=None, help="Output CSV path")
-    parser.add_argument("--max-jobs", type=int, default=50, help="Maximum jobs to collect per company")
+    parser.add_argument("--max-jobs", type=int, default=100, help="Maximum jobs to collect per company")
     parser.add_argument("--headless", action="store_true", help="Run browser headless")
     # Kept for backward compatibility; silently ignored.
     parser.add_argument("--fallback-portal", default=None, help=argparse.SUPPRESS)
@@ -900,14 +1368,16 @@ def main(argv: Optional[List[str]] = None) -> None:
     all_jobs: List[Dict] = []
     with sync_playwright() as playwright:
         browser = playwright.chromium.launch(headless=args.headless)
-        page = browser.new_page()
 
         for source in sources:
+            page = browser.new_page()
             try:
                 company_jobs = scrape_company(page, source, max_jobs=args.max_jobs)
                 all_jobs.extend(company_jobs)
             except Exception as exc:
                 print(f"[{source.company}] Failed: {exc}")
+            finally:
+                page.close()
 
         browser.close()
 

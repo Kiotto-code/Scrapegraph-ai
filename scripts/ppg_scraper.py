@@ -18,6 +18,7 @@ def main(argv: Optional[List[str]] = None) -> None:
     parser = argparse.ArgumentParser(add_help=False)
     parser.add_argument("--start", default="https://www.ppg.com/en-US")
     parser.add_argument("--out", default="ppg_jobs.json")
+    parser.add_argument("--max-jobs", type=int, default=200, help="Maximum jobs to collect per company")
     parser.add_argument("--out-csv", default=None)
     parser.add_argument("--headless", action="store_true")
     args, unknown = parser.parse_known_args(argv)

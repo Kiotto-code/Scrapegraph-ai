@@ -5,3 +5,9 @@ https://perinim.github.io/cv/
 https://www.ppg.com/en-US
 www.petronas.com
 https://www.jpmorgan.com/MY/en/about-us
+
+
+PPG | https://www.ppg.com/en-US
+jpmorgan | https://www.jpmorgan.com/MY/en/about-us
+
+SHELL | https://shell.wd3.myworkdayjobs.com/shellcareers?source=APPLICANT_SOURCE_Malaysia_Local_Page&locationCountry=972dc4ba8d454bc0b893ff84b1529077

@@ -1,0 +1,48 @@
+Starting...
+Browser launched, navigating...
+Page loaded, title: Search results | Find available job openings at PPG
+link rel=next tags: 1
+  next href: https://careers.ppg.com/us/en/search-results?from=10&s=1
+Job links with /job/: 10
+  https://careers.ppg.com/us/en/job/JR262964/Supply-Planning-Manager
+  https://careers.ppg.com/us/en/job/JR264459/Sales-Intern
+  https://careers.ppg.com/us/en/job/JR263338/REF-Expert-Field-Trainer
+  https://careers.ppg.com/us/en/job/JR261914/Production-Engineer
+  https://careers.ppg.com/us/en/job/JR261861/Energy-Engineer-Intern
+  https://careers.ppg.com/us/en/job/JR263793/Stagiair
+  https://careers.ppg.com/us/en/job/JR262301/Spray-Room-Lab-Technician
+  https://careers.ppg.com/us/en/job/JR263436/Doradca-Klienta-m-f-d
+  https://careers.ppg.com/us/en/job/JR261065/Sales-Representative
+  https://careers.ppg.com/us/en/job/JR264163/Inventory-Control-Clerk
+All PPG-related links: 77
+  https://careers.ppg.com/us/en/
+  https://careers.ppg.com/us/en/home
+  https://careers.ppg.com/us/en/our-culture
+  https://careers.ppg.com/us/en/benefits
+  https://careers.ppg.com/us/en/events
+  https://careers.ppg.com/us/en/students-graduates
+  https://careers.ppg.com/us/en/jointalentcommunity
+  https://careers.ppg.com/us/en/candidate-resources
+  https://careers.ppg.com/us/en/search-results
+  https://careers.ppg.com/us/en/
+  https://careers.ppg.com/us/en/jobcart
+  https://careers.ppg.com/us/en/cookiesettings
+  https://careers.ppg.com/us/en/cookiesettings
+  https://careers.ppg.com/us/en/job/JR262964/Supply-Planning-Manager
+  https://careers.ppg.com/us/en/hvhapply?jobSeqNo=PIIPIIUSJR262964EXTERNALENUS
+  https://careers.ppg.com/us/en/job/JR264459/Sales-Intern
+  https://careers.ppg.com/us/en/hvhapply?jobSeqNo=PIIPIIUSJR264459EXTERNALENUS
+  https://careers.ppg.com/us/en/job/JR263338/REF-Expert-Field-Trainer
+  https://careers.ppg.com/us/en/hvhapply?jobSeqNo=PIIPIIUSJR263338EXTERNALENUS
+  https://careers.ppg.com/us/en/job/JR261914/Production-Engineer
+  https://careers.ppg.com/us/en/hvhapply?jobSeqNo=PIIPIIUSJR261914EXTERNALENUS
+  https://careers.ppg.com/us/en/job/JR261861/Energy-Engineer-Intern
+  https://careers.ppg.com/us/en/hvhapply?jobSeqNo=PIIPIIUSJR261861EXTERNALENUS
+  https://careers.ppg.com/us/en/job/JR263793/Stagiair
+  https://careers.ppg.com/us/en/hvhapply?jobSeqNo=PIIPIIUSJR263793EXTERNALENUS
+  https://careers.ppg.com/us/en/job/JR262301/Spray-Room-Lab-Technician
+  https://careers.ppg.com/us/en/hvhapply?jobSeqNo=PIIPIIUSJR262301EXTERNALENUS
+  https://careers.ppg.com/us/en/job/JR263436/Doradca-Klienta-m-f-d
+  https://careers.ppg.com/us/en/hvhapply?jobSeqNo=PIIPIIUSJR263436EXTERNALENUS
+  https://careers.ppg.com/us/en/job/JR261065/Sales-Representative
+Done
